@@ -1,0 +1,28 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+mult is  42
+No. of threads is  24
+Padded capacity is 1007 
+Block size should be 42 
+5000 items, capacity: 1007, time: 1.66777
+76 items used, value 51308, weight 1007
+WRONG SOLUTION 2: Best val not equal to total val (Reasonable for padded capacity case).. best_value 51104, total_value 51308
+Application 26678281 resources: utime 0, stime 0
+
+ + --------------------------------------------------------------------------
+ +        Job name: job-knapsack
+ +          Job Id: 7561579.nid00003
+ +          System: franklin
+ +     Queued Time: Wed Apr  4 21:29:14 2012
+ +      Start Time: Wed Apr  4 21:29:48 2012
+ + Completion Time: Wed Apr  4 21:29:53 2012
+ +            User: cmchin
+ +        MOM Host: nid00339
+ +           Queue: debug
+ +  Req. Resources: other=QSUBPID:80806:nid00007,walltime=00:10:00
+ +  Used Resources: cput=00:00:00,mem=0kb,vmem=0kb,walltime=00:00:05
+ +     Acct String: mp309
+ +   PBS_O_WORKDIR: /global/homes/c/cmchin/franklin/CS267-hw3
+ +     Submit Args: job-knapsack
+ + --------------------------------------------------------------------------
+
