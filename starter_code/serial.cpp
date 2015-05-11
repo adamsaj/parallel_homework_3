@@ -54,31 +54,31 @@ char *read_string( int argc, char **argv, const char *option, char *default_valu
 //
 int build_table( int nitems, int cap, int *T, int *w, int *v )
 {
-    int wj = w[0], vj = v[0];
-    for( int i = 0;  i <  wj;  i++ ) T[i] = 0;
-    for( int i = wj; i <= cap; i++ ) T[i] = vj;
+    int wj = w[0], vj = v[0]; //copy the weight and value of the first item
+    for( int i = 0;  i <  wj;  i++ ) T[i] = 0; //if the allowable weight is less than the first item and we are only considering the first item, the value is zero
+    for( int i = wj; i <= cap; i++ ) T[i] = vj; //if the allowable weight is more than the first item
     
-    for( int j = 1; j < nitems; j++ ) 
+    for( int j = 1; j < nitems; j++ ) //we will now consider more than one item
     {
-        int wj = w[j], vj = v[j];
-        for( int i = 0;  i <  wj;  i++ ) T[i+cap+1] = T[i];
-        for( int i = wj; i <= cap; i++ ) T[i+cap+1] = max( T[i], T[i-wj] + vj );
+        int wj = w[j], vj = v[j]; //grab the value and weight
+        for( int i = 0;  i <  wj;  i++ ) T[i+cap+1] = T[i]; //we can't add the item until the allowable weight is enough to contain the item
+        for( int i = wj; i <= cap; i++ ) T[i+cap+1] = max( T[i], T[i-wj] + vj ); //if the allowable weight is enough to contain the item, the maximum value is obtained by either excluding the item or adding the item to a bag that has just enough space to fit the item
         
-        T += cap+1;
+        T += cap+1; //move the pointer to the next set of items
     }
     
-    return T[cap];
+    return T[cap]; //when all items have been considered, return the bag filled to the maximum capacity
 }
 
 void backtrack( int nitems, int cap, int *T, int *w, int *u )
 {
-    int i = nitems*(cap+1) - 1;
-    for( int j = nitems-1; j > 0; j-- )
+    int i = nitems*(cap+1) - 1; //calculate the index of T containing the solution (neccessary since we will be moving from back to front)
+    for( int j = nitems-1; j > 0; j-- ) //start from the last item and move to the first
     {
-        u[j] = T[i] != T[i-cap-1];
-        i -= cap+1 + (u[j] ? w[j] : 0 );
+        u[j] = T[i] != T[i-cap-1]; //is the solution reached by adding item j, store the answer in u
+        i -= cap+1 + (u[j] ? w[j] : 0 ); //re index i to point to item j-1, and if neccessary compensate for the removal of item j from the bag
     }
-    u[0] = T[i] != 0;
+    u[0] = T[i] != 0; //consider if we used item 1
 }
 
 //
